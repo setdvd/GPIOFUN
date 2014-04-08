@@ -1,0 +1,9 @@
+{
+	"name"        : "GPIOFUN",
+	"version"     : "0.0.1",
+	"dependencies": {
+		"onoff": "*",
+		"i2c"  : "*"
+	}
+
+}
