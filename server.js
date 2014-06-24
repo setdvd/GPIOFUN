@@ -19,7 +19,7 @@ setInterval(function () {
 		data.push(date.valueOf() + ":" + res[1]);
 	});
 
-}, 1000 * 60 * 60 * 2); //Every our;
+}, 1000 * 60 * 60 * 2); //Every 2 hour;
 
 led.write(1, function (err) {
 	if (err) throw err;
