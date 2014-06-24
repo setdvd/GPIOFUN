@@ -27,11 +27,11 @@ led.write(1, function (err) {
 	setInterval(function () {
 		led.read(function (err, value) {
 			if (err) throw err;
-
-			led.write(value == 0 ? 1 : 0, function (err) {
+			var v = value == 0 ? 1 : 0;
+			led.write(v, function (err) {
 				if (err) throw err;
 				setTimeout(function(){
-					led.write(value == 0 ? 1 : 0, function (err) {
+					led.write(!v, function (err) {
 						if (err) throw err;
 					});
 				},100);
