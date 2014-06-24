@@ -1,6 +1,6 @@
 
 
-
+var http = require('http');
 var Gpio = require('onoff').Gpio,
 	led = new Gpio(14, 'out');
 
@@ -39,3 +39,9 @@ process.on('SIGINT', function exit() {
 	led.unexport();
 	process.exit();
 });
+
+http.createServer(function (request, response) {
+	response.writeHead(200, {"Content-Type": "text/plain"});
+	response.end(data.join(';'));
+	data = [];
+}).listen(5000);
