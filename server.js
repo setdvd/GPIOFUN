@@ -21,7 +21,7 @@ setInterval(function () {
 		data.push(date.valueOf()+":"+res[1]);
 	});
 
-}, 1000*60*60); //Every our;
+}, 1000); //Every our;
 
 
 setInterval(function () {
