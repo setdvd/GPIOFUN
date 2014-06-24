@@ -1,30 +1,28 @@
+
+
+
 var Gpio = require('onoff').Gpio,
-	led = new Gpio(14, 'out'),
-	gigrometr = new Gpio(15, 'in');
+	led = new Gpio(14, 'out');
 
 var i2c = require('i2c');
 var address = 0x48;
 var wire = new i2c(address, {device: '/dev/i2c-1', debug: false}); // point to your i2c address, debug provides REPL interface
 
-
-	setInterval(function () {
-		wire.readBytes(0, 2, function (err, res) {
-			if (err){
-				console.log(err);
-				throw err;
-			}
-			console.log("Analog gigrometer say: %d", res[1]);
-		});
-
-	}, 500);
+var data = [];
 
 setInterval(function () {
-	gigrometr.read(function (err, value) {
-		if (err) throw err;
-		console.log("Digital gigrometer say: %s", value);
+	wire.readBytes(0, 2, function (err, res) {
+		if (err) {
+			console.log(err);
+			throw err;
+		}
+		console.log("Analog gigrometer say: %d", res[1]);
+		var date = new Date();
+		data.push(date.valueOf()+":"+res[1]);
 	});
 
-}, 500);
+}, 1000*60*60); //Every our;
+
 
 setInterval(function () {
 	led.read(function (err, value) {
@@ -35,9 +33,7 @@ setInterval(function () {
 		});
 	});
 
-},1000);
-
-
+}, 2000);
 
 process.on('SIGINT', function exit() {
 	led.unexport();
